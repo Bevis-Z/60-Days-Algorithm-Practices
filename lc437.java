@@ -16,32 +16,38 @@ import java.util.HashMap;
  * }
  */
 class Solution {
-    HashMap<Integer, Integer> preSumCount = new HashMap<>();
+    HashMap<Long, Integer> h = new HashMap<>();
 
-    int pathSum, targetSum;
-    int res = 0;
+    int count = 0;
+    int k;
 
     public int pathSum(TreeNode root, int targetSum) {
-        if(root == null) return 0;
-        this.pathSum = 0;
-        this.targetSum = targetSum;
-        this.preSumCount.put(0, 1);
-        travse(root);
-        return res;
-
+        k = targetSum;
+        preorder(root, 0L);
+        return count;
     }
 
-    void travse(TreeNode root) {
-        if (root == null) return;
+    public void preorder(TreeNode node, long currsum) {
+        if (node == null) return;
 
-        pathSum += root.val;
-        res += preSumCount.getOrDefault(pathSum - targetSum, 0);
-        preSumCount.put(pathSum, preSumCount.getOrDefault(pathSum, 0) + 1);
+        currsum += node.val;
 
-        travse(root.left);
-        travse(root.right);
+        if (currsum == k) {
+            count++;
+        }
 
-        preSumCount.put(pathSum, preSumCount.get(pathSum) - 1);
-        pathSum -= root.val;
+        count += h.getOrDefault(currsum - k, 0);
+
+        h.put(currsum, h.getOrDefault(currsum, 0) + 1);
+
+        preorder(node.left, currsum);
+        // process right subtree
+        preorder(node.right, currsum);
+
+        // remove the current sum from the hashmap
+        // in order not to use it during 
+        // the parallel subtree processing
+        h.put(currsum, h.get(currsum) - 1);
     }
+
 }
