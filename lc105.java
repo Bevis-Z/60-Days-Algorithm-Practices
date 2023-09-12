@@ -24,7 +24,7 @@ class Solution {
                     inorder, 0, inorder.length - 1);
     }
 
-    TreeNode build(int[] preorder, int[] inorder, int preStart, int preEnd, int inStart, int inEnd){
+    TreeNode build(int[] preorder, int preStart, int preEnd,int[] inorder, int inStart, int inEnd){
         if(preStart > preEnd) return null;
         int rootVal = preorder[preStart];
         int index = valToIndex.get(rootVal);
@@ -32,8 +32,8 @@ class Solution {
         
         int leftSize = index - inStart;
         TreeNode root = new TreeNode(rootVal);
-        root.left = build(preorder, inorder, preStart + 1, preStart + leftSize, inStart, index - 1);
-        root.right = build(preorder, inorder, preStart + leftSize + 1, preEnd, index + 1, inEnd);
+        root.left = build(preorder, preStart + 1, preStart + leftSize, inorder, inStart, index - 1);
+        root.right = build(preorder, preStart + leftSize + 1, preEnd, inorder, index + 1, inEnd);
         return root;
     }
 }
