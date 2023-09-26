@@ -1,2 +1,2 @@
 # 60-Days-Algorithm-Practices
-Study Record
+LeetCode Study Record
