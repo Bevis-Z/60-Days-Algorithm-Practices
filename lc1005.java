@@ -19,3 +19,5 @@ class Solution {
         return IntStream.of(nums).sum();
     }
 }
+
+// Ready for improve
