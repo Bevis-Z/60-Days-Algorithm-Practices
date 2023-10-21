@@ -42,7 +42,7 @@ class Solution {
         travse(root.left);
         travse(root.right);
 
-        // 后序遍历
+        
         curDepth--;
     } 
 }
