@@ -14,9 +14,9 @@ class Solution {
 
     }
 
-    private void backTracking (int[] nums, int startIndex) {
+    private void backTracking (int[] nums, int BeginIndex) {
         result.add(new ArrayList<>(path));
-        for (int i = startIndex; i < nums.length; i++) {
+        for (int i = BeginIndex; i < nums.length; i++) {
             if (i > 0 && nums[i] == nums[i - 1] && !used[i-1]) {
                 continue;
             }
