@@ -18,7 +18,8 @@ import javax.swing.tree.TreeNode;
 class Solution {
     public void flatten(TreeNode root) {
         // base case
-        if(root == null) return;
+        if(root == null) 
+            return;
         // flatten left subtree
         flatten(root.left);
         // flatten right subtree
