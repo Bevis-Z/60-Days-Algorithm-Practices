@@ -27,7 +27,6 @@ class Solution {
         
         TreeNode left = root.left;
         TreeNode right = root.right;
-        // 将左子树作为右子树
         root.left = null;
         root.right = left;
         // 将原先的右子树接到当前右子树的末端
