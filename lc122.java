@@ -5,5 +5,6 @@ class Solution {
             result = Math.max(result, (prices[i] - prices[i - 1]));
         }
         return result;
+
     }
 }
