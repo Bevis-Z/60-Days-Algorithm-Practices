@@ -22,7 +22,6 @@ class Solution {
         for (int i : intersect) {
             result[index++] = i;
         }
-
         return result;
 
     }
