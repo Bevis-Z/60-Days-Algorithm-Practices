@@ -1,0 +1,105 @@
+
+import heapq
+def getServerIndex2(m, arrival, burstTime): 
+    n = len(arrival)
+    processes = [(arrival[i],  i,burstTime[i]) for i in range(n)] 
+    
+    processes.sort()
+    first_heap = []
+    ans=[-1 for i in range(n)]
+    second_heap = [(0, i) for i in range(m)]
+    for process in processes:
+        arrival_time, original_index ,burst_time= process 
+        while first_heap and first_heap[0][0] <= arrival_time:
+            _, _, released_index = heapq.heappop(first_heap)
+            heapq.heappush(second_heap, (0, released_index))
+        if second_heap:
+            _, server_index = heapq.heappop(second_heap)
+            heapq.heappush(first_heap, (arrival_time + burst_time, burst_time, server_index))
+            ans[original_index] = server_index + 1
+            
+    return ans
+  
+  
+  
+def getMinTransactions(n, debts):
+    balances = [0] * n
+    for x, y, w in debts:
+        balances[x] -= w
+        balances[y] += w
+    balances.sort()
+    left, right = 0, n - 1
+    transactions = 0
+    while left < right:
+        if balances[right] == 0:
+            right -= 1
+        elif balances[left] == 0:
+            left += 1
+        else:
+            transactions += 1
+            if balances[left] == -balances[right]:
+                left += 1
+                right -= 1
+            elif balances[right] + balances[left] < 0:
+                balances[left] += balances[right]
+                right -= 1
+            else:
+                balances[right] += balances[left]
+                left += 1	
+    return transactions
+  
+  
+#q5 
+
+function processTasks(totalTasks, taskDetails, maxConcurrentTasks) {
+    let queue = [];
+    const inProgressTasks = new Set();
+    let currentTime = 0;
+
+    while (queue.length < totalTasks) {
+       # 添加任务到inProgressTasks，直到达到最大并发任务数或没有更多任务可以添加
+        while (inProgressTasks.size < maxConcurrentTasks && taskDetails.length > 0) {
+            const task = taskDetails.shift();
+            inProgressTasks.add(task);
+        }
+       # 找到最短的任务时长
+        let minDuration = Infinity;
+        inProgressTasks.forEach(task => {
+            if (task.taskDuration < minDuration) {
+                minDuration = task.taskDuration;
+            }
+        });
+
+        # 更新当前时间
+        currentTime += minDuration;
+        # 新数组，存储仍在进行中的任务
+        let tasksStillInProgress = [];
+       #更新任务时长，并添加完成的任务到队列
+        inProgressTasks.forEach(task => {
+            task.taskDuration -= minDuration;
+            if (task.taskDuration === 0) {
+                queue.push(task.taskName);
+            } else {
+                # 如果任务还未完成，将其添加到仍在进行中的任务列表
+                tasksStillInProgress.push(task);
+            }
+        });
+
+        # 更新inProgressTasks，移除已完成的任务
+        inProgressTasks.clear();
+        tasksStillInProgress.forEach(task => inProgressTasks.add(task));
+    }
+
+    return queue;
+}
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
