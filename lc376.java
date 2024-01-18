@@ -3,7 +3,6 @@ class Solution {
         if (nums.length <= 1) {
             return nums.length;
         }
-
         int curDiff = 0;
         int preDiff = 0;
         int count = 1;
