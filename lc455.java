@@ -12,6 +12,7 @@ class Solution {
             }
             gl--;
         }
+        
         return result;
     }
 }
