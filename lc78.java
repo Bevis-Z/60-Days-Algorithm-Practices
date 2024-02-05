@@ -6,6 +6,7 @@ class Solution {
         return result;
     }
 
+    
     private void backTracking(int[] nums, int startIndex) {
         result.add(new ArrayList<>(path));
         for (int i = startIndex; i < nums.length; i++) {
